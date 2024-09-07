@@ -1,0 +1,12 @@
+{
+  "name": "rsa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anton-matveev-hel/RSA.git"
+  },
+  "private": true
+}
