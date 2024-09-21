@@ -10,7 +10,7 @@
     "type": "git",
     "url": "https://github.com/anton-matveev-hel/RSA.git"
   },
-  "dependencies": {
+  "devDependencies": {
     "jest": "^29.7.0"
   },
   "private": true
