@@ -3,10 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "jest"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/anton-matveev-hel/RSA.git"
+  },
+  "dependencies": {
+    "jest": "^29.7.0"
   },
   "private": true
 }
