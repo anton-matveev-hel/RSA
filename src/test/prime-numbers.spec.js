@@ -14,7 +14,7 @@ describe("Module prime-numbers - for generating Big Integer prime numbers.", () 
         test( "Rejects large compound numbers", () => {
             for(let i = 0; i < 10; i++) {
                 let number = primeNumbers.getRandomBigInt(2048); // Arbitrarily-long number
-                number |= 1n; // Set its last bit to 0, so that it's odd;
+                number |= 1n; // Set its last bit to 1, so that it's odd;
                 number *= 3n; // Multiply by 3, so that it's still odd but definitely compound;
                 assert(!primeNumbers.isProbablyPrime(number));
             }
