@@ -18,7 +18,7 @@ describe("Module prime-numbers - for generating Big Integer prime numbers.", () 
                 number *= 3n; // Multiply by 3, so that it's still odd but definitely compound;
                 assert(!primeNumbers.isProbablyPrime(number));
             }
-        }, 2000);
+        });
 
         test( "Accepts known prime numbers", () => {
             assert(primeNumbers.isProbablyPrime(9990450013n)); // The numbers were picked randomly from prime-numbers.org
@@ -30,6 +30,6 @@ describe("Module prime-numbers - for generating Big Integer prime numbers.", () 
             assert(primeNumbers.isProbablyPrime(9988046317n));
             assert(primeNumbers.isProbablyPrime(9988046773n));
             assert(primeNumbers.isProbablyPrime(9988048381n));
-        }, 2000);
+        });
     });
 });
