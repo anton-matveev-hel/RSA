@@ -1,4 +1,4 @@
-const primeNumbers = require("../src/prime-number");
+const primeNumbers = require("../lib/prime-number");
 const assert = require('node:assert').strict;
 
 describe("Module prime-numbers - for generating Big Integer prime numbers.", () => {
