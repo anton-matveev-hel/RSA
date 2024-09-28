@@ -7,6 +7,7 @@ RSA encryption implementation in JavaScript.
   * [Week 1](Documentation/WeeklyReports/Week1.md)
   * [Week 2](Documentation/WeeklyReports/Week2.md)
   * [Week 3](Documentation/WeeklyReports/Week3.md)
+  * [Week 4](Documentation/WeeklyReports/Week4.md)
 
 <h3>Running Tests</h3>
 

@@ -1,3 +1,3 @@
-const primeNumber = require("./prime-number")
+const primeNumber = require("./prime-numbers")
 
 console.log(primeNumber.getRandomPrime(2048));
