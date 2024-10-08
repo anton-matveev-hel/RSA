@@ -1,4 +1,4 @@
-const randomNumbers = require("../lib/random-numbers")
+const randomNumbers = require("../../lib/random-numbers")
 const assert = require('node:assert').strict;
 
 describe("Module randomNumbers - utility functions for the project.", () => {

@@ -1,4 +1,4 @@
-const crypto = require("crypto");
+const util = require("./util");
 const randomNumbers = require("./random-numbers")
 
 module.exports = {
@@ -32,12 +32,12 @@ module.exports = {
             const a = randomNumbers.getRandomBigIntInRange(2n, n - 2n);
 
             // Compute x = a^d mod n
-            let x = this._modPow(a, d, n);
+            let x = util.modPow(a, d, n);
 
             if (x === 1n || x === n - 1n) continue;
 
             for (let r = 1n; r < s; r++) {
-                x = this._modPow(x, 2n, n);
+                x = util.modPow(x, 2n, n);
 
                 if (x === n - 1n) continue OuterLoop;
             }
@@ -65,19 +65,5 @@ module.exports = {
             s += 1n;
         }
         return { s, d };
-    },
-
-    _modPow: function(base, exponent, modulus) {
-        if (modulus === 1n) return 0n;
-        let result = 1n;
-        base = base % modulus;
-        while (exponent > 0n) {
-            if (exponent % 2n === 1n) {
-                result = (result * base) % modulus;
-            }
-            exponent = exponent / 2n;
-            base = (base * base) % modulus;
-        }
-        return result;
-    },
+    }
 }

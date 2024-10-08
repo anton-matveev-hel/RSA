@@ -1,5 +1,5 @@
-const randomNumbers = require("../lib/random-numbers")
-const primeNumbers = require("../lib/prime-numbers");
+const randomNumbers = require("../../lib/random-numbers")
+const primeNumbers = require("../../lib/prime-numbers");
 const assert = require('node:assert').strict;
 
 describe("Module prime-numbers - for generating Big Integer prime numbers.", () => {
