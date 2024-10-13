@@ -19,17 +19,31 @@ module.exports = {
         return { e, d, n };
     },
 
-    decrypt: function(ciphertext, d, n) {
-        const m = util.modPow(ciphertext, d, n);
-        return this._decodeMessage(m);
+    decrypt: function(encryptedBlocks, d, n) {
+        const decryptedBytes = [];
+        encryptedBlocks.forEach(c => {
+            let m = util.modPow(c, d, n);
+            const blockBytes = [];
+            while (m > 0n) {
+                blockBytes.unshift(Number(m % 256n));
+                m = m / 256n;
+            }
+            decryptedBytes.push(...blockBytes);
+        });
+        const decoder = new TextDecoder();
+        return decoder.decode(new Uint8Array(decryptedBytes));
     },
 
     encrypt: function(message, e, n) {
-        const m = this._encodeMessage(message);
-        if (m >= n) {
-            throw new Error("Message too long for the key size.");
-        }
-        return util.modPow(m, e, n);
+        const maxLength = Math.floor((n.toString(2).length - 1) / 8);
+        const blocks = this._splitMessage(message, maxLength);
+        return blocks.map(block => {
+            let m = 0n;
+            for (const byte of block) {
+                m = (m << 8n) + BigInt(byte);
+            }
+            return util.modPow(m, e, n);
+        });
     },
 
     _gcd: function(a, b) {
@@ -39,23 +53,14 @@ module.exports = {
         return a;
     },
 
-    _decodeMessage: function(m) {
-        const bytes = [];
-        while (m > 0n) {
-            bytes.unshift(Number(m % 256n));
-            m = m / 256n;
-        }
-        const decoder = new TextDecoder();
-        return decoder.decode(new Uint8Array(bytes));
-    },
-
-    _encodeMessage: function(message) {
+    _splitMessage: function(message, maxLength) {
         const encoder = new TextEncoder();
         const bytes = encoder.encode(message);
-        let m = 0n;
-        for (const byte of bytes) {
-            m = (m << 8n) + BigInt(byte);
+        const blocks = [];
+        for (let i = 0; i < bytes.length; i += maxLength) {
+            blocks.push(bytes.slice(i, i + maxLength));
         }
-        return m;
+        return blocks;
     }
+
 }
