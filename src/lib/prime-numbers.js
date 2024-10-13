@@ -2,6 +2,18 @@ const util = require("./util");
 const randomNumbers = require("./random-numbers")
 
 module.exports = {
+    /**
+     * Precomputed small primes used to optimise Miller-Rabin primality test.
+     * @private {Array<number>|undefined}
+     */
+    _smallPrimes: undefined,
+
+    /**
+     * Generate a random prime of specified bit length.
+     *
+     * @param bitLength
+     * @return {BigInt}
+     */
     getRandomPrime: function(bitLength) {
         let prime;
         do {
@@ -21,11 +33,15 @@ module.exports = {
      * @returns {boolean} **true** is the number is likely a prime.
      */
     isProbablyPrime: function(n, rounds = 40) {
-        if (n === 2n || n === 3n) return true;
-        if (n <= 1n || n % 2n === 0n) return false;
+        if(!this._smallPrimes)
+            this._smallPrimes = this._generateSmallPrimes(10000); // Max number selected by comparing performance through tests
+        for (const prime of this._smallPrimes) {
+            if (n % BigInt(prime) === 0n) {
+                return false; // n is composite
+            }
+        }
 
         const { s, d } = this._findSandD(n);
-
         OuterLoop:
         for (let i = 0; i < rounds; i++) {
             // Choose a random integer a in [2, n - 2]
@@ -65,5 +81,25 @@ module.exports = {
             s += 1n;
         }
         return { s, d };
+    },
+
+    _generateSmallPrimes: function(max) {
+        const sieve = new Uint8Array(max + 1);
+        sieve.fill(1);
+        sieve[0] = sieve[1] = 0;
+
+        for (let p = 2; p * p <= max; p++) {
+            if (sieve[p]) {
+                for (let i = p * p; i <= max; i += p) {
+                    sieve[i] = 0;
+                }
+            }
+        }
+
+        const primes = [];
+        for (let i = 2; i <= max; i++) {
+            if (sieve[i]) primes.push(i);
+        }
+        return primes;
     }
 }
