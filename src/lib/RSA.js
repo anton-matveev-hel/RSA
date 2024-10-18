@@ -16,7 +16,7 @@ module.exports = {
             throw new Error("e and φ(n) are not coprime.");
         }
         const d = util.modInverse(e, phi);
-        return { e, d, n };
+        return { p, q, d, n, e };
     },
 
     decrypt: function(encryptedBlocks, d, n) {
