@@ -10,9 +10,12 @@
     "type": "git",
     "url": "https://github.com/anton-matveev-hel/RSA.git"
   },
+  "dependencies": {
+    "asn1js": "^3.0.5",
+    "yargs": "^17.7.2"
+  },
   "devDependencies": {
-    "jest": "^29.7.0",
-    "asn1js": "^3.0.5"
+    "jest": "^29.7.0"
   },
   "private": true
 }
