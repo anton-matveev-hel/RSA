@@ -83,12 +83,19 @@ module.exports = {
         return { s, d };
     },
 
+    /**
+     * Generate primes using the Sieve of Eratosthenes.
+     *
+     * @param max max threshold for prime values.
+     * @return {[number]}
+     * @private
+     */
     _generateSmallPrimes: function(max) {
         const sieve = new Uint8Array(max + 1);
         sieve.fill(1);
         sieve[0] = sieve[1] = 0;
-
-        for (let p = 2; p * p <= max; p++) {
+        const upperLimit = Math.sqrt(max);
+        for (let p = 2; p <= upperLimit; p++) {
             if (sieve[p]) {
                 for (let i = p * p; i <= max; i += p) {
                     sieve[i] = 0;

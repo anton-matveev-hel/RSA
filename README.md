@@ -3,6 +3,7 @@ RSA encryption implementation in JavaScript.
 
 * [Specification Document](Documentation/Specification.md)
 * [Implementation Document](Documentation/Implementation.md)
+* [Testing Document](Documentation/Testing.md)
 * Weekly Reports:
   * [Week 1](Documentation/WeeklyReports/Week1.md)
   * [Week 2](Documentation/WeeklyReports/Week2.md)
