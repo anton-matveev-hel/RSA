@@ -18,6 +18,7 @@ RSA encryption implementation in JavaScript.
 * NPM
 
 <h3>Installation</h3>
+
 ```bash
 npm i
 ```
