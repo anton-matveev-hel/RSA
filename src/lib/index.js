@@ -61,26 +61,26 @@ function generateKeys(argv) {
 }
 
 function encrypt(argv) {
-    console.log(`Encrypting ${argv.file} with ${argv.k}...`);
-    const pemString = fs.readFileSync(argv.k, {encoding: "utf8"});
+    console.log(`Encrypting ${argv.file} with ${argv.key}...`);
+    const pemString = fs.readFileSync(argv.key, {encoding: "utf8"});
     const key = pem.decodePublicKey(pemString);
     const message = fs.readFileSync(argv.file, {encoding: "utf8"});
     const blocks = rsa.encrypt(message, key.e, key.n);
     const stringBlocks = blocks.map(block => block.toString());
     const buffer = Buffer.from(JSON.stringify(stringBlocks));
     fs.writeFileSync(argv.o, buffer.toString("base64"), { encoding: "utf8" });
-    console.log(`Successfully created ${argv.o}.`);
+    console.log(`Successfully created ${argv.out}.`);
 }
 
 function decrypt(argv) {
-    console.log(`Decrypting ${argv.file} with ${argv.k}...`);
-    const pemString = fs.readFileSync(argv.k, {encoding: "utf8"});
+    console.log(`Decrypting ${argv.file} with ${argv.key}...`);
+    const pemString = fs.readFileSync(argv.key, {encoding: "utf8"});
     const key = pem.decodePrivateKey(pemString);
     const base64Message = fs.readFileSync(argv.file, {encoding: "utf8"});
     const buffer = Buffer.from(base64Message, "base64");
     const stringBlocks = JSON.parse(buffer.toString("utf8"));
     const blocks = stringBlocks.map(block => BigInt(block));
     const message = rsa.decrypt(blocks, key.d, key.n);
-    fs.writeFileSync(argv.o, message, { encoding: "utf8" });
-    console.log(`Successfully created ${argv.o}.`);
+    fs.writeFileSync(argv.out, message, { encoding: "utf8" });
+    console.log(`Successfully created ${argv.out}.`);
 }
