@@ -31,19 +31,23 @@ npm run test
 
 <h3>Using the Tool</h3>
 * CLI Help
+
 ```bash
 npm run rsa --help
 ```
 * Key Generation
+
 ```bash
 node src/lib/index.js generate-keys 2048 --name my_key # yields ./my_key.public.pem and ./my_key.private.pem
 ```
 * Encryption
+
 ```bash
 node src/lib/index.js encrypt message.txt -k my_key.public.pem -o message.enc
 ```
 
 * Decryption
+
 ```bash
 node src/lib/index.js decrypt message.enc -k my_key.private.pem -o message.dec.txt
 ```
